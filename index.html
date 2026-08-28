@@ -326,25 +326,12 @@
   .awqaf-link:hover::after{transform:translate(-3px,-3px);}
 
   .prayer{background:var(--cream-2);}
-  .prayer-table{
-    max-width:760px; margin:0 auto; border:1px solid rgba(107,74,48,.25);
-    background:var(--cream);
-  }
-  .prayer-row{
-    display:grid; grid-template-columns:1fr 1fr; align-items:center;
-    padding:18px 30px; border-bottom:1px solid rgba(107,74,48,.15);
-  }
-  .prayer-row:last-child{border-bottom:none;}
-  .prayer-row.head{background:var(--green); color:var(--cream);}
-  .prayer-row.head .prayer-name{color:var(--gold-light); font-family:'Aref Ruqaa',serif; font-size:1.2rem;}
-  .prayer-name{font-weight:700; font-size:1.05rem;}
-  .prayer-time{text-align:left; direction:ltr; font-size:1.1rem; color:var(--wood); font-weight:500;}
-  .prayer-note{
-    text-align:center; margin-top:22px; font-size:.9rem; opacity:.65;
+  .prayer .sec-sub{max-width:560px; margin:0 auto 8px;}
+  .prayer-location-note{
+    margin-top:14px; font-size:.9rem; color:var(--wood); min-height:1.3em;
   }
   .awqaf-source{text-align:center; margin-top:26px;}
-  .awqaf-source .btn{color:var(--green-2); border-color:var(--gold); font-size:.85rem;}
-  .awqaf-source .btn:hover{background:var(--gold); color:var(--green-2);}
+  .awqaf-source .btn{font-size:.9rem;}
 
   /* EVENTS */
   .events-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:10px;}
@@ -453,7 +440,6 @@
     .navlinks li.nav-hidden{display:none;}
     .about-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
-    .prayer-row{padding:16px 20px;}
     .events-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
     .quran-grid{grid-template-columns:1fr;}
@@ -483,10 +469,10 @@
         <input type="text" id="navSearch" class="nav-search-input" placeholder="ابحث في الأقسام..." data-i18n-placeholder="navSearch">
       </li>
       <li><a href="#home" data-i18n="navHome">الرئيسية</a></li>
+      <li><a href="#prayer" data-i18n="navPrayer">مواقيت الصلاة</a></li>
       <li><a href="#about" data-i18n="navAbout">عن المسجد</a></li>
       <li><a href="#gallery" data-i18n="navGallery">معرض الصور</a></li>
       <li><a href="#women" data-i18n="navWomen">مصلى النساء</a></li>
-      <li><a href="#prayer" data-i18n="navPrayer">مواقيت الصلاة</a></li>
       <li><a href="#qibla" data-i18n="navQibla">اتجاه القبلة</a></li>
       <li><a href="#quran" data-i18n="navQuran">القرآن الكريم</a></li>
       <li><a href="#awqaf" data-i18n="navAwqaf">خطبة الجمعة ودروس الأوقاف</a></li>
@@ -510,6 +496,22 @@
     <div class="hero-cta">
       <a href="#prayer" class="btn btn-solid" data-i18n="heroBtnPrayer">مواقيت الصلاة</a>
       <a href="#contact" class="btn btn-outline" data-i18n="heroBtnContact">الموقع والتواصل</a>
+    </div>
+  </div>
+</section>
+
+<section class="prayer" id="prayer">
+  <div class="container" style="text-align:center;">
+    <h2 class="sec-title display" data-i18n="prayerTitle">مواقيت الصلاة</h2>
+    <p class="sec-sub" data-i18n="prayerIntro">للاطلاع على مواقيت الصلاة اليومية الدقيقة والمعتمدة رسميًا، تفضل بزيارة موقع هيئة الأوقاف الإماراتية.</p>
+    <div class="awqaf-source">
+      <a href="https://www.awqaf.gov.ae/prayer-times" target="_blank" rel="noopener" class="btn btn-solid" data-i18n="prayerSourceBtn">
+        المصدر الرسمي لمواقيت الصلاة — هيئة الأوقاف الإماراتية 🕌
+      </a>
+    </div>
+    <div style="margin-top:22px;">
+      <button class="btn btn-outline" id="detectLocationBtn" data-i18n="prayerDetectBtn">📍 اكتشف أقرب مدينة لي</button>
+      <p class="prayer-location-note" id="prayerLocationNote"></p>
     </div>
   </div>
 </section>
@@ -590,28 +592,6 @@
   <button class="lightbox-close" id="lightboxClose" aria-label="إغلاق">✕</button>
   <img id="lightboxImg" src="" alt="">
 </div>
-
-<section class="prayer" id="prayer">
-  <div class="container">
-    <h2 class="sec-title display" data-i18n="prayerTitle">مواقيت الصلاة</h2>
-    <div class="prayer-table">
-      <div class="prayer-row head"><span class="prayer-name" data-i18n="prayerColName">الصلاة</span><span class="prayer-time" data-i18n="prayerColTime">الوقت</span></div>
-      <div class="prayer-row"><span class="prayer-name" data-i18n="prayerFajr">الفجر</span><span class="prayer-time" id="t-fajr">--:--</span></div>
-      <div class="prayer-row"><span class="prayer-name" data-i18n="prayerSunrise">الشروق</span><span class="prayer-time" id="t-sunrise">--:--</span></div>
-      <div class="prayer-row"><span class="prayer-name" data-i18n="prayerDhuhr">الظهر</span><span class="prayer-time" id="t-dhuhr">--:--</span></div>
-      <div class="prayer-row"><span class="prayer-name" data-i18n="prayerAsr">العصر</span><span class="prayer-time" id="t-asr">--:--</span></div>
-      <div class="prayer-row"><span class="prayer-name" data-i18n="prayerMaghrib">المغرب</span><span class="prayer-time" id="t-maghrib">--:--</span></div>
-      <div class="prayer-row"><span class="prayer-name" data-i18n="prayerIsha">العشاء</span><span class="prayer-time" id="t-isha">--:--</span></div>
-      <div class="prayer-row"><span class="prayer-name" data-i18n="prayerJumua">الجمعة</span><span class="prayer-time" id="t-jumua">--:--</span></div>
-    </div>
-    <p class="prayer-note" id="prayer-note" data-i18n="prayerLoading">جارِ تحميل مواقيت اليوم لمدينة العين، الإمارات العربية المتحدة...</p>
-    <div class="awqaf-source">
-      <a href="https://www.awqaf.gov.ae/prayer-times" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="prayerSourceBtn">
-        المصدر الرسمي لمواقيت الصلاة — هيئة الأوقاف الإماراتية 🕌
-      </a>
-    </div>
-  </div>
-</section>
 
 <section class="qibla" id="qibla">
   <div class="container">
@@ -707,7 +687,6 @@
       <div>
         <ul class="contact-list">
           <li><span class="ic">📍</span><div><b data-i18n="contactAddrLabel">العنوان</b><span><a href="https://maps.app.goo.gl/cenedzBxAvACRR2y6?g_st=ic" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;" data-i18n="contactAddrLink">فتح موقع المسجد على خرائط جوجل</a></span></div></li>
-          <li><span class="ic">✉️</span><div><b data-i18n="contactEmailLabel">البريد الإلكتروني</b><span><a href="mailto:Yassinbelfassi90@gmail.com" style="color:inherit; text-decoration:underline;">Yassinbelfassi90@gmail.com</a></span></div></li>
         </ul>
         <a href="https://maps.app.goo.gl/cenedzBxAvACRR2y6?g_st=ic" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:26px; display:inline-block; border-color:var(--gold);" data-i18n="contactDirectionsBtn">الحصول على الاتجاهات 🕋</a>
         <a href="https://search.google.com/local/writereview?placeid=ChIJ114-VgC5ij4RGVfvlj3iJoU" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:26px; margin-right:12px; display:inline-block; border-color:var(--gold);" data-i18n="contactRateBtn">قيّم المسجد ⭐⭐⭐⭐⭐</a>
@@ -726,9 +705,7 @@
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <button type="submit" class="btn btn-solid" id="cfSubmit" data-i18n="formSubmit">إرسال الرسالة</button>
         <p class="cf-status" id="cfStatus"></p>
-        <p class="cf-fallback" data-i18n="formFallback">في حال تعذّر إرسال النموذج، يُرجى مراسلتنا مباشرة على
-          <a href="mailto:Yassinbelfassi90@gmail.com" style="color:var(--gold-light); text-decoration:underline;">Yassinbelfassi90@gmail.com</a>
-        </p>
+        <p class="cf-fallback" data-i18n="formFallback">في حال تعذّر إرسال النموذج، يُرجى المحاولة مرة أخرى بعد قليل.</p>
       </form>
     </div>
   </div>
@@ -763,9 +740,17 @@
       prayerTitle: 'مواقيت الصلاة', prayerColName: 'الصلاة', prayerColTime: 'الوقت',
       prayerFajr: 'الفجر', prayerSunrise: 'الشروق', prayerDhuhr: 'الظهر', prayerAsr: 'العصر',
       prayerMaghrib: 'المغرب', prayerIsha: 'العشاء', prayerJumua: 'الجمعة',
-      prayerLoading: 'جارِ تحميل مواقيت اليوم لمدينة العين، الإمارات العربية المتحدة...',
+      prayerLoading: 'آخر تحديث: 28 أغسطس 2026 — المواقيت من تطبيق هيئة الأوقاف الإماراتية.',
       prayerNoteLoaded: 'مواقيت اليوم (تقديرية فلكيًا) لمدينة العين — تُحسب تلقائيًا وتتغيّر كل يوم. للمواقيت المعتمدة رسميًا راجع رابط هيئة الأوقاف أدناه.',
       prayerSourceBtn: 'المصدر الرسمي لمواقيت الصلاة — هيئة الأوقاف الإماراتية 🕌',
+      prayerIntro: 'للاطلاع على مواقيت الصلاة اليومية الدقيقة والمعتمدة رسميًا، تفضل بزيارة موقع هيئة الأوقاف الإماراتية.',
+      prayerDetectBtn: '📍 اكتشف أقرب مدينة لي',
+      prayerLocationLoading: 'جارِ تحديد موقعك...',
+      prayerLocationResult: 'أقرب مدينة لك: {city} — اخترها من داخل صفحة الأوقاف لعرض مواقيتها.',
+      prayerLocationDenied: 'تعذّر تحديد موقعك — تأكد من السماح بإذن الموقع (GPS) للمتصفح.',
+      prayerLocationUnsupported: 'متصفحك لا يدعم خدمة تحديد الموقع.',
+      cityAbuDhabi: 'أبوظبي', cityAlAin: 'العين', cityDubai: 'دبي', citySharjah: 'الشارقة',
+      cityAjman: 'عجمان', cityUAQ: 'أم القيوين', cityRAK: 'رأس الخيمة', cityFujairah: 'الفجيرة',
       qiblaTitle: 'اتجاه القبلة',
       qiblaSub: 'بوصلة تُحدد اتجاه الكعبة المشرّفة من موقع مسجد المرحوم غلوم علي عبد الله الخوري بمدينة العين.',
       dirN: 'ش', dirE: 'ق', dirS: 'ج', dirW: 'غ',
@@ -794,7 +779,7 @@
       formName: 'الاسم', formEmail: 'بريدك الإلكتروني', formMessage: 'اكتب رسالتك هنا...',
       formSubmit: 'إرسال الرسالة', formSending: 'جارِ الإرسال...',
       formSuccess: 'تم إرسال رسالتك بنجاح، شكرًا لتواصلك معنا.',
-      formError: 'تعذّر إرسال الرسالة، يُرجى المحاولة مرة أخرى، أو مراسلتنا مباشرة على',
+      formError: 'تعذّر إرسال الرسالة، يُرجى المحاولة مرة أخرى بعد قليل.',
       formFallback: 'في حال تعذّر إرسال النموذج، يُرجى مراسلتنا مباشرة على',
       footerRights: 'جميع الحقوق محفوظة',
     },
@@ -817,9 +802,17 @@
       prayerTitle: 'Prayer Times', prayerColName: 'Prayer', prayerColTime: 'Time',
       prayerFajr: 'Fajr', prayerSunrise: 'Sunrise', prayerDhuhr: 'Dhuhr', prayerAsr: 'Asr',
       prayerMaghrib: 'Maghrib', prayerIsha: 'Isha', prayerJumua: "Jumu'ah",
-      prayerLoading: "Loading today's prayer times for Al Ain, UAE...",
+      prayerLoading: 'Last updated: August 28, 2026 — times from the UAE Awqaf app.',
       prayerNoteLoaded: "Today's estimated (astronomically calculated) times for Al Ain — computed automatically and updated daily. For officially approved times, see the Awqaf link below.",
       prayerSourceBtn: 'Official Prayer Times Source — UAE Awqaf Authority 🕌',
+      prayerIntro: 'For accurate, officially approved daily prayer times, please visit the UAE Awqaf Authority website.',
+      prayerDetectBtn: '📍 Detect my nearest city',
+      prayerLocationLoading: 'Detecting your location...',
+      prayerLocationResult: 'Your nearest city: {city} — select it inside the Awqaf page to view its timings.',
+      prayerLocationDenied: 'Could not detect your location — make sure location (GPS) access is allowed for the browser.',
+      prayerLocationUnsupported: 'Your browser does not support location services.',
+      cityAbuDhabi: 'Abu Dhabi', cityAlAin: 'Al Ain', cityDubai: 'Dubai', citySharjah: 'Sharjah',
+      cityAjman: 'Ajman', cityUAQ: 'Umm Al Quwain', cityRAK: 'Ras Al Khaimah', cityFujairah: 'Fujairah',
       qiblaTitle: 'Qibla Direction',
       qiblaSub: "A compass showing the direction of the Holy Kaaba from the mosque's location in Al Ain.",
       dirN: 'N', dirE: 'E', dirS: 'S', dirW: 'W',
@@ -848,7 +841,7 @@
       formName: 'Name', formEmail: 'Your email', formMessage: 'Write your message here...',
       formSubmit: 'Send Message', formSending: 'Sending...',
       formSuccess: 'Your message has been sent successfully, thank you for reaching out.',
-      formError: 'Failed to send the message. Please try again, or email us directly at',
+      formError: 'Failed to send the message. Please try again in a moment.',
       formFallback: "If the form doesn't work, please email us directly at",
       footerRights: 'All rights reserved',
     },
@@ -874,6 +867,14 @@
       prayerLoading: 'العین، متحدہ عرب امارات کے آج کے نماز اوقات لوڈ ہو رہے ہیں...',
       prayerNoteLoaded: 'آج کے تخمینی (فلکیاتی حساب سے) اوقات العین کے لیے — خود بخود روزانہ اپ ڈیٹ ہوتے ہیں۔ سرکاری طور پر منظور شدہ اوقات کے لیے نیچے اوقاف کا لنک دیکھیں۔',
       prayerSourceBtn: 'نماز کے اوقات کا سرکاری ماخذ — یو اے ای اوقاف اتھارٹی 🕌',
+      prayerIntro: 'درست اور سرکاری طور پر منظور شدہ روزانہ کی نماز کے اوقات دیکھنے کے لیے، براہ کرم یو اے ای اوقاف اتھارٹی کی ویب سائٹ ملاحظہ کریں۔',
+      prayerDetectBtn: '📍 میرا قریب ترین شہر معلوم کریں',
+      prayerLocationLoading: 'آپ کا مقام معلوم کیا جا رہا ہے...',
+      prayerLocationResult: 'آپ کا قریب ترین شہر: {city} — اوقاف کے صفحے میں اسے منتخب کریں تاکہ اس کے اوقات دیکھ سکیں۔',
+      prayerLocationDenied: 'آپ کا مقام معلوم نہیں ہو سکا — براہ کرم براؤزر کے لیے لوکیشن (GPS) کی اجازت دیں۔',
+      prayerLocationUnsupported: 'آپ کا براؤزر لوکیشن سروسز کو سپورٹ نہیں کرتا۔',
+      cityAbuDhabi: 'ابوظہبی', cityAlAin: 'العین', cityDubai: 'دبئی', citySharjah: 'شارجہ',
+      cityAjman: 'عجمان', cityUAQ: 'ام القوین', cityRAK: 'رأس الخیمہ', cityFujairah: 'فجیرہ',
       qiblaTitle: 'قبلہ کی سمت',
       qiblaSub: 'ایک قطب نما جو العین میں مسجد کے مقام سے خانہ کعبہ کی سمت بتاتا ہے۔',
       dirN: 'شمال', dirE: 'مشرق', dirS: 'جنوب', dirW: 'مغرب',
@@ -902,7 +903,7 @@
       formName: 'نام', formEmail: 'آپ کا ای میل', formMessage: 'یہاں اپنا پیغام لکھیں...',
       formSubmit: 'پیغام بھیجیں', formSending: 'بھیجا جا رہا ہے...',
       formSuccess: 'آپ کا پیغام کامیابی سے بھیج دیا گیا، رابطہ کرنے کا شکریہ۔',
-      formError: 'پیغام بھیجنے میں ناکامی۔ دوبارہ کوشش کریں، یا براہ راست ای میل کریں',
+      formError: 'پیغام بھیجنے میں ناکامی۔ کچھ دیر بعد دوبارہ کوشش کریں۔',
       formFallback: 'اگر فارم کام نہ کرے تو براہ راست ای میل کریں',
       footerRights: 'جملہ حقوق محفوظ ہیں',
     },
@@ -999,109 +1000,52 @@
     });
   });
 
-  // ── مواقيت الصلاة التلقائية لمدينة العين، الإمارات ─────────────────
-  // تُحسب المواقيت فلكيًا (بدون أي اتصال بالإنترنت) اعتمادًا على إحداثيات
-  // مدينة العين وتاريخ اليوم الحالي، فتتغيّر تلقائيًا كل يوم بدون أي تدخل
-  // يدوي، وتعمل حتى داخل المعاينات المغلقة التي تمنع الاتصال بخدمات خارجية.
-  function loadPrayerTimes(){
-    const LAT = 24.2075, LON = 55.7447, TZ = 4; // مدينة العين، توقيت الإمارات (+4 بدون توقيت صيفي)
+  // ── اكتشاف أقرب مدينة إماراتية للزائر (لتسهيل اختيار المدينة الصحيحة
+  // في موقع الأوقاف الرسمي، بما إن موقعهم مش بيدعم رابط مباشر لكل مدينة) ──
+  (function nearestCity(){
+    const btn = document.getElementById('detectLocationBtn');
+    const note = document.getElementById('prayerLocationNote');
+    if (!btn || !note) return;
 
-    const toRad = d => d * Math.PI / 180;
-    const toDeg = r => r * 180 / Math.PI;
+    const CITIES = [
+      { key: 'cityAbuDhabi', lat: 24.4539, lon: 54.3773 },
+      { key: 'cityAlAin',    lat: 24.2075, lon: 55.7447 },
+      { key: 'cityDubai',    lat: 25.2048, lon: 55.2708 },
+      { key: 'citySharjah',  lat: 25.3463, lon: 55.4209 },
+      { key: 'cityAjman',    lat: 25.4052, lon: 55.5136 },
+      { key: 'cityUAQ',      lat: 25.5647, lon: 55.5534 },
+      { key: 'cityRAK',      lat: 25.7895, lon: 55.9432 },
+      { key: 'cityFujairah', lat: 25.1288, lon: 56.3265 },
+    ];
 
-    function julianDay(y, m, d){
-      if (m <= 2){ y -= 1; m += 12; }
-      const A = Math.floor(y / 100);
-      const B = 2 - A + Math.floor(A / 4);
-      return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + B - 1524.5;
+    function haversine(lat1, lon1, lat2, lon2){
+      const R = 6371, toRad = d => d * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     }
 
-    function sunPosition(jd){
-      const T = (jd - 2451545.0) / 36525.0;
-      let L0 = 280.46646 + T * (36000.76983 + T * 0.0003032);
-      L0 = L0 % 360;
-      const M = 357.52911 + T * (35999.05029 - 0.0001537 * T);
-      const e = 0.016708634 - T * (0.000042037 + 0.0000001267 * T);
-      const C = Math.sin(toRad(M)) * (1.914602 - T * (0.004817 + 0.000014 * T))
-              + Math.sin(toRad(2 * M)) * (0.019993 - 0.000101 * T)
-              + Math.sin(toRad(3 * M)) * 0.000289;
-      const trueLong = L0 + C;
-      const omega = 125.04 - 1934.136 * T;
-      const appLong = trueLong - 0.00569 - 0.00478 * Math.sin(toRad(omega));
-      const meanObliq = 23 + (26 + (21.448 - T * (46.815 + T * (0.00059 - T * 0.001813))) / 60) / 60;
-      const obliqCorr = meanObliq + 0.00256 * Math.cos(toRad(omega));
-      const decl = toDeg(Math.asin(Math.sin(toRad(obliqCorr)) * Math.sin(toRad(appLong))));
-      const y = Math.pow(Math.tan(toRad(obliqCorr / 2)), 2);
-      const eqTime = 4 * toDeg(
-        y * Math.sin(2 * toRad(L0))
-        - 2 * e * Math.sin(toRad(M))
-        + 4 * e * y * Math.sin(toRad(M)) * Math.cos(2 * toRad(L0))
-        - 0.5 * y * y * Math.sin(4 * toRad(L0))
-        - 1.25 * e * e * Math.sin(2 * toRad(M))
+    btn.addEventListener('click', () => {
+      if (!('geolocation' in navigator)){
+        note.textContent = t('prayerLocationUnsupported');
+        return;
+      }
+      note.textContent = t('prayerLocationLoading');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          let nearest = CITIES[0], minDist = Infinity;
+          CITIES.forEach(c => {
+            const d = haversine(latitude, longitude, c.lat, c.lon);
+            if (d < minDist){ minDist = d; nearest = c; }
+          });
+          note.innerHTML = t('prayerLocationResult').replace('{city}', `<b style="color:var(--green-2);">${t(nearest.key)}</b>`);
+        },
+        () => { note.textContent = t('prayerLocationDenied'); },
+        { timeout: 10000 }
       );
-      return { decl, eqTime };
-    }
-
-    function hourAngle(lat, decl, angle){
-      const latR = toRad(lat), declR = toRad(decl), angR = toRad(angle);
-      let cosHA = (Math.sin(angR) - Math.sin(latR) * Math.sin(declR)) / (Math.cos(latR) * Math.cos(declR));
-      cosHA = Math.max(-1, Math.min(1, cosHA));
-      return toDeg(Math.acos(cosHA));
-    }
-
-    function computeTimings(date){
-      const jd = julianDay(date.getFullYear(), date.getMonth() + 1, date.getDate());
-      const { decl, eqTime } = sunPosition(jd);
-      const solarNoonLocal = (720 - 4 * LON - eqTime) / 60 + TZ;
-
-      const sunriseHA = hourAngle(LAT, decl, -0.833);
-      const fajrHA = hourAngle(LAT, decl, -18);
-      const diff = Math.abs(LAT - decl);
-      const asrElevation = toDeg(Math.atan(1 / (1 + Math.tan(toRad(diff)))));
-      const asrHA = hourAngle(LAT, decl, asrElevation);
-
-      const fajr = solarNoonLocal - fajrHA / 15;
-      const sunrise = solarNoonLocal - sunriseHA / 15;
-      const dhuhr = solarNoonLocal;
-      const asr = solarNoonLocal + asrHA / 15;
-      const maghrib = solarNoonLocal + sunriseHA / 15;
-      const isha = maghrib + 1.5; // العشاء: 90 دقيقة بعد المغرب
-
-      const toHHMM = (h) => {
-        let hh = Math.floor(((h % 24) + 24) % 24);
-        let mm = Math.round((h - Math.floor(h)) * 60);
-        if (mm === 60){ mm = 0; hh = (hh + 1) % 24; }
-        return `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
-      };
-
-      return {
-        Fajr: toHHMM(fajr), Sunrise: toHHMM(sunrise), Dhuhr: toHHMM(dhuhr),
-        Asr: toHHMM(asr), Maghrib: toHHMM(maghrib), Isha: toHHMM(isha)
-      };
-    }
-
-    const to12h = (t) => {
-      if (!t) return '--:--';
-      let [h, m] = t.split(':').map(Number);
-      const period = h >= 12 ? 'م' : 'ص';
-      h = h % 12; if (h === 0) h = 12;
-      return `${h}:${String(m).padStart(2,'0')} ${period}`;
-    };
-
-    const timings = computeTimings(new Date());
-    document.getElementById('t-fajr').textContent = to12h(timings.Fajr);
-    document.getElementById('t-sunrise').textContent = to12h(timings.Sunrise);
-    document.getElementById('t-dhuhr').textContent = to12h(timings.Dhuhr);
-    document.getElementById('t-asr').textContent = to12h(timings.Asr);
-    document.getElementById('t-maghrib').textContent = to12h(timings.Maghrib);
-    document.getElementById('t-isha').textContent = to12h(timings.Isha);
-    document.getElementById('t-jumua').textContent = to12h(timings.Dhuhr);
-
-    const noteEl = document.getElementById('prayer-note');
-    noteEl.dataset.state = 'loaded';
-    noteEl.textContent = t('prayerNoteLoaded');
-  }
-  loadPrayerTimes();
+    });
+  })();
 
   // ── فورم التواصل: يرسل الرسالة عبر FormSubmit من غير ما الزائر يسيب الموقع ─
   // ── معرض الصور: نافذة تكبير داخل الصفحة (بدون فتح تبويب جديد) ──────
@@ -1168,7 +1112,7 @@
         form.reset();
       } catch (err) {
         clearTimeout(timeout);
-        statusEl.innerHTML = t('formError') + ' <a href="mailto:' + CONTACT_EMAIL + '" style="color:var(--gold-light); text-decoration:underline;">' + CONTACT_EMAIL + '</a>';
+        statusEl.textContent = t('formError');
         statusEl.className = 'cf-status err';
       } finally {
         btn.disabled = false;
