@@ -44,7 +44,7 @@
   html[lang="en"] body, html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3, html[lang="en"] .display{
     font-family:'Georgia', 'Times New Roman', serif;
   }
-  .lang-switch{display:flex; gap:6px; align-items:center;}
+  .lang-switch{display:flex; gap:6px; align-items:center; flex-shrink:0;}
   .lang-btn{
     background:none; border:1px solid rgba(184,147,74,.4); color:var(--cream);
     font-size:.75rem; padding:5px 10px; cursor:pointer; border-radius:2px;
@@ -80,7 +80,11 @@
     display:flex; align-items:center; justify-content:space-between;
     max-width:1180px; margin:0 auto; padding:16px 24px;
   }
-  .brand{color:var(--gold-light); font-size:clamp(.85rem,2.2vw,1.15rem); letter-spacing:.5px; white-space:nowrap;}
+  .brand{
+    color:var(--gold-light); font-size:clamp(.75rem,2vw,1.15rem); letter-spacing:.5px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    flex:1 1 auto; min-width:0;
+  }
   .navlinks{display:flex; gap:28px; list-style:none;}
   .nav-search-item{display:none;}
   .navlinks a{color:var(--cream); font-size:.95rem; position:relative; padding:4px 0;}
@@ -89,7 +93,7 @@
     background:var(--gold); transition:width .3s ease;
   }
   .navlinks a:hover::after{width:100%;}
-  .navToggle{display:none; background:none; border:none; color:var(--cream); font-size:1.6rem; cursor:pointer;}
+  .navToggle{display:none; background:none; border:none; color:var(--cream); font-size:1.6rem; cursor:pointer; flex-shrink:0;}
 
   /* HERO */
   .hero{
