@@ -213,10 +213,11 @@
     background:radial-gradient(circle at 50% 42%, #fff, var(--cream-2) 70%);
     border:2px solid var(--gold);
     box-shadow:0 0 0 6px var(--cream-2), inset 0 0 30px rgba(107,74,48,.12);
+    transition:transform .3s ease-out;
   }
   .dir{
-    position:absolute; color:var(--wood); font-weight:700; font-size:.9rem;
-    font-family:'Aref Ruqaa', serif;
+    position:absolute; color:var(--wood); font-weight:700; font-size:.85rem;
+    font-family:'Tajawal', sans-serif;
   }
   .dir-n{top:12px; left:50%; transform:translateX(-50%); color:var(--green-2);}
   .dir-s{bottom:12px; left:50%; transform:translateX(-50%);}
@@ -543,15 +544,15 @@
           <span class="dir dir-e" data-i18n="dirE">ق</span>
           <span class="dir dir-s" data-i18n="dirS">ج</span>
           <span class="dir dir-w" data-i18n="dirW">غ</span>
-        </div>
-        <div class="qibla-needle" id="qiblaNeedle">
-          <svg viewBox="0 0 64 84" class="kaaba-icon">
-            <rect x="14" y="18" width="36" height="36" fill="#141210" stroke="#B8934A" stroke-width="2"/>
-            <rect x="14" y="30" width="36" height="7" fill="#D8B876"/>
-            <rect x="27" y="18" width="10" height="36" fill="#0c0a08" opacity=".5"/>
-            <path d="M32 0 L40 18 H24 Z" fill="#B8934A"/>
-          </svg>
-          <span class="needle-line"></span>
+          <div class="qibla-needle" id="qiblaNeedle">
+            <svg viewBox="0 0 64 84" class="kaaba-icon">
+              <rect x="14" y="18" width="36" height="36" fill="#141210" stroke="#B8934A" stroke-width="2"/>
+              <rect x="14" y="30" width="36" height="7" fill="#D8B876"/>
+              <rect x="27" y="18" width="10" height="36" fill="#0c0a08" opacity=".5"/>
+              <path d="M32 0 L40 18 H24 Z" fill="#B8934A"/>
+            </svg>
+            <span class="needle-line"></span>
+          </div>
         </div>
         <div class="compass-center"></div>
       </div>
@@ -1129,7 +1130,6 @@
       if (heading === null) return;
       window.__qiblaGotReading = true;
       ring.style.transform = `rotate(${-heading}deg)`;
-      needle.style.transform = `rotate(${qiblaBearing}deg)`;
       statusEl.textContent = t('qiblaActiveMsg');
     }
 
